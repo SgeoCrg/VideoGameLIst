@@ -1,10 +1,10 @@
 package data;
 
 public class VideoGame {
-    String title;
-    String genre;
-    float price;
-    Company company;
+    protected String title;
+    protected String genre;
+    protected float price;
+    protected Company company;
     static int counter = 0;
 
     public VideoGame(String title, String genre, float price, Company company) {
@@ -13,6 +13,12 @@ public class VideoGame {
         this.price = price;
         this.company = company;
         counter++;
+    }
+
+    public VideoGame(String title, String genre, float price) {
+        this.title = title;
+        this.genre = genre;
+        this.price = price;
     }
 
     public String getTitle() {
@@ -37,6 +43,14 @@ public class VideoGame {
 
     public void setPrice(float price) {
         this.price = price;
+    }
+
+    public void counterDown() {
+        counter--;
+    }
+
+    public int getCounter() {
+        return counter;
     }
 
     @Override

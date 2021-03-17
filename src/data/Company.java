@@ -1,8 +1,8 @@
 package data;
 
 public class Company {
-    String name;
-    int foundationYear;
+    protected String name;
+    protected int foundationYear;
 
     public Company(String name, int foundationYear) {
         this.name = name;

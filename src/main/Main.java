@@ -4,9 +4,7 @@ import data.Company;
 import data.PCVideoGame;
 import data.VideoGame;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class Main {
 
@@ -19,21 +17,79 @@ public class Main {
         PCVideoGame game4 = new PCVideoGame("Empires","Strategy", 19.95f, 4600, 23000, comp2);
         PCVideoGame game5 = new PCVideoGame("Might and magic", "Role", 11.90f, 4600, 12000, comp2);
         VideoGame expensive = new VideoGame("","",0, comp1);
+        expensive.counterDown();
         List<VideoGame> list = new ArrayList<>();
         list.add(game1);
         list.add(game2);
         list.add(game3);
         list.add(game4);
         list.add(game5);
-        for (int i = 0; i < list.size(); i++) {
-            System.out.println(list.get(i).toString());
-            if (expensive.getPrice() < list.get(i).getPrice()) {
-                expensive = list.get(i);
+
+        showList(list);
+
+        Collections.sort(list, new Comparator<VideoGame>() {
+            @Override
+            public int compare(VideoGame v1, VideoGame v2) {
+
+                return Integer.compare((int)(v1.getPrice()*100), (int)(v2.getPrice()*100));
             }
-        }
+        });
+
+        expensive = findExpesive(list);
+
         System.out.println("The expensive game is: " + expensive.toString());
         // show the more uses company
-        //print "counter"
+        System.out.println(list.get(list.size()-1).getCounter());
+        String findingText = askData("Title lookin' for? ");
+        for (int i = 0; i < list.size(); i++) {
+            if(list.get(i).getTitle().contains(findingText))
+                System.out.println(list.get(i).toString());
+        }
+
+
+        remove(list);
+        showList(list);
+        System.out.println(list.get(list.size()-1).getCounter());
+    }
+
+    static void remove(List<VideoGame> list) {
+        int elementToRemove = askNumber("Position to remove? ");
+        if (list.size() > 0 && elementToRemove > 0 && elementToRemove < list.size())
+            list.remove(elementToRemove);
+        if (list.size() > 0)
+            list.get(0).counterDown();
+    }
+
+    static int askNumber(String text) {
+        Scanner sc = new Scanner(System.in);
+        int number;
+        System.out.println(text);
+        number = sc.nextInt();
+        return  number;
+    }
+
+    static String askData(String text) {
+        Scanner sc = new Scanner(System.in);
+        String answer;
+        System.out.println(text);
+        answer = sc.nextLine();
+        return answer;
+    }
+
+    static void showList(List<VideoGame> list) {
+        for (int i = 0; i < list.size(); i++) {
+            System.out.println(list.get(i).toString());
+        }
+    }
+
+    static VideoGame findExpesive(List<VideoGame> list) {
+        VideoGame aux = new VideoGame("","",0);
+        for (int i = 0; i < list.size(); i++) {
+            if (aux.getPrice() < list.get(i).getPrice()) {
+                aux = list.get(i);
+            }
+        }
+        return aux;
     }
 }
 /*

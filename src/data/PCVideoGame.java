@@ -2,8 +2,8 @@ package data;
 
 public class PCVideoGame extends VideoGame{
 
-    int minimumRAM;
-    int minimumHD;
+    protected int minimumRAM;
+    protected int minimumHD;
 
     public PCVideoGame(String title, String genre, float price, int minimumRAM,
                        int minimumHD, Company company) {
